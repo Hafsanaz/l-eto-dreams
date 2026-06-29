@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="32" fill="#173A5E"/>
+  <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle"
+    font-family="Playfair Display, Georgia, serif" font-style="italic"
+    font-size="38" font-weight="700" fill="#C9A66B">L</text>
+  <circle cx="44" cy="22" r="2" fill="#C9A66B"/>
+</svg>
