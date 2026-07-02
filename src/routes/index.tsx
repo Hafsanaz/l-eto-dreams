@@ -96,8 +96,8 @@ function ChoiceCard({
 }) {
   const inner = (
     <>
-      <div className="absolute inset-0 bg-gradient-to-br from-navy/70 via-navy/40 to-navy/80 transition group-hover:from-navy/85 group-hover:via-navy/55 group-hover:to-navy/90" />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-navy/20 transition group-hover:bg-navy/35" />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 md:p-8">
         <div>
           <p className="eyebrow text-gold">{eyebrow}</p>
@@ -115,7 +115,7 @@ function ChoiceCard({
   );
 
   const className =
-    "group relative block aspect-[5/3] overflow-hidden rounded-3xl border border-ivory/20 shadow-[var(--shadow-card)] backdrop-blur-sm md:aspect-[4/3] md:rounded-[2rem]";
+    "group relative block aspect-[5/3] overflow-hidden rounded-3xl border border-ivory/30 bg-ivory/5 shadow-[var(--shadow-card)] backdrop-blur-md md:aspect-[4/3] md:rounded-[2rem]";
 
   return internal ? (
     <Link to={href} className={className}>
