@@ -62,7 +62,6 @@ function Home() {
         <ChoiceCard
           href="/contact"
           internal
-          img={storefront}
           icon={ShoppingBag}
           eyebrow="Visit the bakeshop"
           title="Takeaway"
@@ -70,7 +69,6 @@ function Home() {
         />
         <ChoiceCard
           href={WHATSAPP_URL}
-          img={pastries}
           icon={Bike}
           eyebrow="Order on WhatsApp"
           title="Delivery"
@@ -84,7 +82,6 @@ function Home() {
 function ChoiceCard({
   href,
   internal,
-  img,
   icon: Icon,
   eyebrow,
   title,
@@ -92,7 +89,6 @@ function ChoiceCard({
 }: {
   href: string;
   internal?: boolean;
-  img: string;
   icon: React.ComponentType<{ className?: string }>;
   eyebrow: string;
   title: string;
@@ -100,13 +96,8 @@ function ChoiceCard({
 }) {
   const inner = (
     <>
-      <img
-        src={img}
-        alt={title}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-110"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/55 to-navy/10 transition group-hover:from-navy/95 group-hover:via-navy/60" />
+      <div className="absolute inset-0 bg-gradient-to-br from-navy/70 via-navy/40 to-navy/80 transition group-hover:from-navy/85 group-hover:via-navy/55 group-hover:to-navy/90" />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 md:p-8">
         <div>
           <p className="eyebrow text-gold">{eyebrow}</p>
@@ -124,7 +115,7 @@ function ChoiceCard({
   );
 
   const className =
-    "group relative block aspect-[5/3] overflow-hidden border border-ivory/20 shadow-[var(--shadow-card)] md:aspect-[4/3]";
+    "group relative block aspect-[5/3] overflow-hidden rounded-3xl border border-ivory/20 shadow-[var(--shadow-card)] backdrop-blur-sm md:aspect-[4/3] md:rounded-[2rem]";
 
   return internal ? (
     <Link to={href} className={className}>
