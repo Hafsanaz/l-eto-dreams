@@ -67,9 +67,10 @@ function Home() {
           sub="Walk in, pick up freshly baked cakes & pastries."
         />
         <ChoiceCard
-          href={WHATSAPP_URL}
+          href="/menu"
+          internal
           icon={Bike}
-          eyebrow="Order on WhatsApp"
+          eyebrow="Browse the menu"
           title="Delivery"
           sub="We'll bring the celebration to your door."
         />
