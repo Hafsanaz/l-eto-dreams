@@ -115,7 +115,7 @@ function ChoiceCard({
   );
 
   const className =
-    "group relative block aspect-[5/3] overflow-hidden rounded-3xl border border-ivory/30 bg-ivory/5 shadow-[var(--shadow-card)] backdrop-blur-md md:aspect-[4/3] md:rounded-[2rem]";
+    "group relative block aspect-[16/9] overflow-hidden rounded-2xl border border-ivory/30 bg-ivory/5 shadow-[var(--shadow-card)] backdrop-blur-md sm:aspect-[4/3] md:rounded-3xl";
 
   return internal ? (
     <Link to={href} className={className}>
