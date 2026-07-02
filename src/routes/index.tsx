@@ -46,7 +46,6 @@ function Home() {
       {/* Centred brand block */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-32 text-center md:px-10 md:pt-36">
         <div className="fade-up max-w-3xl">
-          <p className="eyebrow text-gold">Patisserie · Attock, Pakistan</p>
           <h1 className="mt-5 font-display text-5xl leading-[1.05] text-ivory md:text-7xl lg:text-[5.5rem]">
             <span className="italic">L'</span>ETO
             <span className="block text-gold">Bakeshop</span>
@@ -57,15 +56,6 @@ function Home() {
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ivory/75 md:text-base">
             Premium handcrafted cakes and desserts — your imagination, our creation.
           </p>
-
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-ivory/80 md:text-sm">
-            <span className="inline-flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-gold" /> Teen Meela Chowk, Attock
-            </span>
-            <a href={PHONE_TEL} className="inline-flex items-center gap-2 hover:text-gold">
-              <Phone className="h-4 w-4 text-gold" /> {PHONE_DISPLAY}
-            </a>
-          </div>
         </div>
       </div>
 
