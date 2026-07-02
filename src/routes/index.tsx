@@ -96,8 +96,8 @@ function ChoiceCard({
 }) {
   const inner = (
     <>
-      <div className="absolute inset-0 bg-gradient-to-br from-navy/70 via-navy/40 to-navy/80 transition group-hover:from-navy/85 group-hover:via-navy/55 group-hover:to-navy/90" />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-navy/20 transition group-hover:bg-navy/35" />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 md:p-8">
         <div>
           <p className="eyebrow text-gold">{eyebrow}</p>
