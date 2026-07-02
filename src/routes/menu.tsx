@@ -229,7 +229,7 @@ function Menu() {
                     </div>
                     <p className="mt-3 flex-1 text-sm leading-relaxed text-navy-soft">{item.desc}</p>
                     <a
-                      href={WHATSAPP_URL}
+                      href={whatsappOrderUrl(item.name)}
                       target="_blank"
                       rel="noreferrer"
                       className="mt-6 inline-flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-navy hover:text-gold"
