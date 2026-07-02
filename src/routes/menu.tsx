@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { WHATSAPP_URL } from "@/lib/contact";
+import { whatsappOrderUrl } from "@/lib/contact";
 
 // Existing assets
 import kitkat from "@/assets/cake-kitkat.jpg";
