@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ShoppingBag, Bike } from "lucide-react";
 import heroCake from "@/assets/hero-cake.jpg";
-import { WHATSAPP_URL } from "@/lib/contact";
 
 export const Route = createFileRoute("/")({
   head: () => ({
