@@ -2,6 +2,11 @@ export const PHONE_DISPLAY = "+92 335 6633668";
 export const PHONE_TEL = "tel:+923356633668";
 export const WHATSAPP_URL =
   "https://wa.me/923356633668?text=Hi%20L'ETO%20Bakeshop%2C%20I%27d%20like%20to%20place%20an%20order.";
+
+export function whatsappOrderUrl(itemName: string) {
+  const text = `Hey L'ETO, I want to order your ${itemName}.`;
+  return `https://wa.me/923356633668?text=${encodeURIComponent(text)}`;
+}
 export const ADDRESS_LINES = [
   "Opposite Total Parco Petrol Pump,",
   "Near Teen Meela Chowk,",
