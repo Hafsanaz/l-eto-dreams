@@ -98,18 +98,18 @@ function ChoiceCard({
     <>
       <div className="absolute inset-0 bg-navy/20 transition group-hover:bg-navy/35" />
       <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 md:p-8">
+      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 md:p-5">
         <div>
-          <p className="eyebrow text-gold">{eyebrow}</p>
-          <h2 className="mt-2 font-display text-3xl text-ivory md:text-4xl">{title}</h2>
-          <p className="mt-2 max-w-xs text-xs text-ivory/75 md:text-sm">{sub}</p>
+          <p className="eyebrow text-[10px] text-gold md:text-xs">{eyebrow}</p>
+          <h2 className="mt-1 font-display text-xl text-ivory md:text-2xl">{title}</h2>
+          <p className="mt-1 max-w-[14rem] text-[11px] text-ivory/75 md:text-xs">{sub}</p>
         </div>
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ivory/30 text-ivory transition group-hover:border-gold group-hover:bg-gold group-hover:text-navy md:h-14 md:w-14">
-          <Icon className="h-5 w-5" />
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ivory/30 text-ivory transition group-hover:border-gold group-hover:bg-gold group-hover:text-navy md:h-10 md:w-10">
+          <Icon className="h-4 w-4" />
         </span>
       </div>
-      <span className="absolute right-6 top-6 text-ivory/0 transition group-hover:text-ivory">
-        <ArrowRight className="h-5 w-5" />
+      <span className="absolute right-4 top-4 text-ivory/0 transition group-hover:text-ivory">
+        <ArrowRight className="h-4 w-4" />
       </span>
     </>
   );
