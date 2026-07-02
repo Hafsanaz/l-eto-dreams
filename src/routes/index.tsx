@@ -1,9 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { MapPin, Phone, ArrowRight, ShoppingBag, Bike } from "lucide-react";
+import { ArrowRight, ShoppingBag, Bike } from "lucide-react";
 import heroCake from "@/assets/hero-cake.jpg";
-import storefront from "@/assets/storefront.jpg";
-import pastries from "@/assets/pastries.jpg";
-import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/lib/contact";
+import { WHATSAPP_URL } from "@/lib/contact";
 
 export const Route = createFileRoute("/")({
   head: () => ({
