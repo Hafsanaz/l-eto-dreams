@@ -58,7 +58,7 @@ function Home() {
       </div>
 
       {/* Two-portion choice — Takeaway / Delivery */}
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 px-6 pb-10 pt-10 md:grid-cols-2 md:gap-6 md:px-10 md:pb-14">
+      <div className="relative z-10 mx-auto grid w-full max-w-3xl grid-cols-1 gap-3 px-6 pb-10 pt-6 sm:grid-cols-2 md:gap-4 md:px-10 md:pb-14">
         <ChoiceCard
           href="/contact"
           internal
