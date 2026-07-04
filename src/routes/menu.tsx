@@ -147,8 +147,19 @@ const categories: Category[] = [
   },
 ];
 
+function parsePrice(label: string): number {
+  const digits = label.replace(/[^0-9]/g, "");
+  return digits ? parseInt(digits, 10) : 0;
+}
+
+function slugify(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 function Menu() {
   const [active, setActive] = useState<Category | null>(null);
+  const { add, open: openCart } = useCart();
+  const [addedId, setAddedId] = useState<string | null>(null);
 
   return (
     <section className="bg-powder min-h-screen pb-24 pt-36 md:pt-44">
