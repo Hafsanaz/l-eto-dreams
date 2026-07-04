@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, Phone, ShoppingBag } from "lucide-react";
 import { Logo } from "./Logo";
-import { WHATSAPP_URL, PHONE_TEL } from "@/lib/contact";
+import { PHONE_TEL } from "@/lib/contact";
 import { useCart } from "@/lib/cart";
 
 const NAV = [
