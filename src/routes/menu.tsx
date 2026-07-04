@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Plus, MessageCircle } from "lucide-react";
 import { whatsappOrderUrl } from "@/lib/contact";
+import { useCart } from "@/lib/cart";
 
 // Existing assets
 import kitkat from "@/assets/cake-kitkat.jpg";
