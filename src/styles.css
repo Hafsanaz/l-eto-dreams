@@ -221,3 +221,26 @@
 @utility float-slow {
   animation: floaty 7s ease-in-out infinite;
 }
+
+@utility input {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  background-color: var(--ivory);
+  color: var(--navy);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  border: 1px solid color-mix(in oklab, var(--navy) 20%, transparent);
+  border-radius: 0;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--gold) 25%, transparent);
+  }
+
+  &::placeholder {
+    color: color-mix(in oklab, var(--navy) 45%, transparent);
+  }
+}
+

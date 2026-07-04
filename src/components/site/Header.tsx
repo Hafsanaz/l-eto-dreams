@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ShoppingBag } from "lucide-react";
 import { Logo } from "./Logo";
-import { WHATSAPP_URL, PHONE_TEL } from "@/lib/contact";
+import { PHONE_TEL } from "@/lib/contact";
+import { useCart } from "@/lib/cart";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -14,6 +15,7 @@ const NAV = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { count, open: openCart } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -51,18 +53,33 @@ export function Header() {
           <a href={PHONE_TEL} className="btn-ghost">
             <Phone className="h-4 w-4" /> Call
           </a>
-          <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-navy">
-            Order on WhatsApp
-          </a>
+          <button onClick={openCart} className="btn-navy relative" aria-label="Open cart">
+            <ShoppingBag className="h-4 w-4" /> Cart
+            {count > 0 && (
+              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[0.65rem] font-semibold text-navy">
+                {count}
+              </span>
+            )}
+          </button>
         </div>
 
-        <button
-          aria-label="Toggle menu"
-          onClick={() => setOpen((v) => !v)}
-          className="rounded-full border border-navy/20 p-2.5 lg:hidden"
-        >
-          {open ? <X className="h-5 w-5 text-navy" /> : <Menu className="h-5 w-5 text-navy" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <button onClick={openCart} className="relative rounded-full border border-navy/20 p-2.5" aria-label="Open cart">
+            <ShoppingBag className="h-5 w-5 text-navy" />
+            {count > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[0.65rem] font-semibold text-navy">
+                {count}
+              </span>
+            )}
+          </button>
+          <button
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+            className="rounded-full border border-navy/20 p-2.5"
+          >
+            {open ? <X className="h-5 w-5 text-navy" /> : <Menu className="h-5 w-5 text-navy" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
@@ -88,9 +105,15 @@ export function Header() {
             <a href={PHONE_TEL} className="btn-ghost">
               <Phone className="h-4 w-4" /> Call Now
             </a>
-            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-navy">
-              Order on WhatsApp
-            </a>
+            <button
+              onClick={() => {
+                setOpen(false);
+                openCart();
+              }}
+              className="btn-navy"
+            >
+              <ShoppingBag className="h-4 w-4" /> View Cart{count > 0 ? ` (${count})` : ""}
+            </button>
           </div>
         </div>
       </div>

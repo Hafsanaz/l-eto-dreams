@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Plus, MessageCircle } from "lucide-react";
 import { whatsappOrderUrl } from "@/lib/contact";
+import { useCart } from "@/lib/cart";
 
 // Existing assets
 import kitkat from "@/assets/cake-kitkat.jpg";
@@ -146,8 +147,19 @@ const categories: Category[] = [
   },
 ];
 
+function parsePrice(label: string): number {
+  const digits = label.replace(/[^0-9]/g, "");
+  return digits ? parseInt(digits, 10) : 0;
+}
+
+function slugify(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 function Menu() {
   const [active, setActive] = useState<Category | null>(null);
+  const { add, open: openCart } = useCart();
+  const [addedId, setAddedId] = useState<string | null>(null);
 
   return (
     <section className="bg-powder min-h-screen pb-24 pt-36 md:pt-44">
@@ -210,35 +222,53 @@ function Menu() {
             </div>
 
             <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {active.items.map((item) => (
-                <article key={item.name} className="group flex flex-col bg-ivory shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-card)]">
-                  <div className="overflow-hidden">
-                    <img
-                      src={item.img}
-                      alt={item.name}
-                      loading="lazy"
-                      width={1024}
-                      height={1024}
-                      className="aspect-[5/4] w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col p-7">
-                    <div className="flex items-start justify-between gap-4">
-                      <h3 className="font-display text-2xl">{item.name}</h3>
-                      <span className="shrink-0 font-display text-lg text-gold">{item.price}</span>
+              {active.items.map((item) => {
+                const id = `${active.id}-${slugify(item.name)}`;
+                const priceValue = parsePrice(item.price);
+                const justAdded = addedId === id;
+                return (
+                  <article key={id} className="group flex flex-col bg-ivory shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-card)]">
+                    <div className="overflow-hidden">
+                      <img
+                        src={item.img}
+                        alt={item.name}
+                        loading="lazy"
+                        width={1024}
+                        height={1024}
+                        className="aspect-[5/4] w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      />
                     </div>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-navy-soft">{item.desc}</p>
-                    <a
-                      href={whatsappOrderUrl(item.name)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-6 inline-flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-navy hover:text-gold"
-                    >
-                      Order on WhatsApp <ArrowRight className="h-3.5 w-3.5" />
-                    </a>
-                  </div>
-                </article>
-              ))}
+                    <div className="flex flex-1 flex-col p-7">
+                      <div className="flex items-start justify-between gap-4">
+                        <h3 className="font-display text-2xl">{item.name}</h3>
+                        <span className="shrink-0 font-display text-lg text-gold">{item.price}</span>
+                      </div>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-navy-soft">{item.desc}</p>
+                      <div className="mt-6 flex flex-col gap-3">
+                        <button
+                          onClick={() => {
+                            add({ id, name: item.name, price: priceValue, priceLabel: item.price, img: item.img });
+                            setAddedId(id);
+                            setTimeout(() => setAddedId((cur) => (cur === id ? null : cur)), 1200);
+                            openCart();
+                          }}
+                          className="btn-navy w-full justify-center"
+                        >
+                          <Plus className="h-4 w-4" /> {justAdded ? "Added" : "Add to cart"}
+                        </button>
+                        <a
+                          href={whatsappOrderUrl(item.name)}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center justify-center gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-navy hover:text-gold"
+                        >
+                          <MessageCircle className="h-3.5 w-3.5" /> Order on WhatsApp
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </>
         )}
