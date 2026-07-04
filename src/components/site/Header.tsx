@@ -53,18 +53,33 @@ export function Header() {
           <a href={PHONE_TEL} className="btn-ghost">
             <Phone className="h-4 w-4" /> Call
           </a>
-          <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-navy">
-            Order on WhatsApp
-          </a>
+          <button onClick={openCart} className="btn-navy relative" aria-label="Open cart">
+            <ShoppingBag className="h-4 w-4" /> Cart
+            {count > 0 && (
+              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[0.65rem] font-semibold text-navy">
+                {count}
+              </span>
+            )}
+          </button>
         </div>
 
-        <button
-          aria-label="Toggle menu"
-          onClick={() => setOpen((v) => !v)}
-          className="rounded-full border border-navy/20 p-2.5 lg:hidden"
-        >
-          {open ? <X className="h-5 w-5 text-navy" /> : <Menu className="h-5 w-5 text-navy" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <button onClick={openCart} className="relative rounded-full border border-navy/20 p-2.5" aria-label="Open cart">
+            <ShoppingBag className="h-5 w-5 text-navy" />
+            {count > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[0.65rem] font-semibold text-navy">
+                {count}
+              </span>
+            )}
+          </button>
+          <button
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+            className="rounded-full border border-navy/20 p-2.5"
+          >
+            {open ? <X className="h-5 w-5 text-navy" /> : <Menu className="h-5 w-5 text-navy" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
