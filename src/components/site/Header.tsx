@@ -105,9 +105,15 @@ export function Header() {
             <a href={PHONE_TEL} className="btn-ghost">
               <Phone className="h-4 w-4" /> Call Now
             </a>
-            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-navy">
-              Order on WhatsApp
-            </a>
+            <button
+              onClick={() => {
+                setOpen(false);
+                openCart();
+              }}
+              className="btn-navy"
+            >
+              <ShoppingBag className="h-4 w-4" /> View Cart{count > 0 ? ` (${count})` : ""}
+            </button>
           </div>
         </div>
       </div>
