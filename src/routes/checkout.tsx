@@ -31,7 +31,9 @@ const schema = z.object({
 function Checkout() {
   const { items, subtotal, clear } = useCart();
   const navigate = useNavigate();
+  const startCardPayment = useServerFn(createSafepayCheckout);
   const [form, setForm] = useState({ customer_name: "", phone: "", address: "", notes: "" });
+  const [payMethod, setPayMethod] = useState<PayMethod>("cod");
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
