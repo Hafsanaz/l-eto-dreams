@@ -234,7 +234,11 @@ function Checkout() {
             )}
 
             <button disabled={submitting} className="btn-navy mt-8 w-full justify-center disabled:opacity-60">
-              {submitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Placing order…</> : `Place order · ${formatPKR(total)}`}
+              {submitting ? (
+                <><Loader2 className="h-4 w-4 animate-spin" /> {payMethod === "card" ? "Redirecting to Safepay…" : "Placing order…"}</>
+              ) : (
+                payMethod === "card" ? `Pay ${formatPKR(total)} with card` : `Place order · ${formatPKR(total)}`
+              )}
             </button>
           </form>
 
