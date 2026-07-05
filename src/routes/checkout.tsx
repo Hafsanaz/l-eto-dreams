@@ -190,16 +190,42 @@ function Checkout() {
 
             <div className="mt-8">
               <h3 className="font-display text-lg text-navy">Payment method</h3>
-              <div className="mt-3 flex items-start gap-3 border border-navy/20 bg-powder p-4">
-                <input type="radio" checked readOnly className="mt-1 accent-navy" />
-                <div>
-                  <p className="text-sm font-medium text-navy">Cash on Delivery</p>
-                  <p className="text-xs text-navy-soft">Pay in cash when your order arrives at your door.</p>
-                </div>
+              <div className="mt-3 grid gap-3">
+                <label className={`flex cursor-pointer items-start gap-3 border p-4 transition ${payMethod === "cod" ? "border-navy bg-powder" : "border-navy/20 hover:bg-powder/60"}`}>
+                  <input
+                    type="radio"
+                    name="pay"
+                    checked={payMethod === "cod"}
+                    onChange={() => setPayMethod("cod")}
+                    className="mt-1 accent-navy"
+                  />
+                  <div className="flex-1">
+                    <p className="flex items-center gap-2 text-sm font-medium text-navy">
+                      <Wallet className="h-4 w-4" /> Cash on Delivery
+                    </p>
+                    <p className="text-xs text-navy-soft">Pay in cash when your order arrives at your door.</p>
+                  </div>
+                </label>
+                <label className={`flex cursor-pointer items-start gap-3 border p-4 transition ${payMethod === "card" ? "border-navy bg-powder" : "border-navy/20 hover:bg-powder/60"}`}>
+                  <input
+                    type="radio"
+                    name="pay"
+                    checked={payMethod === "card"}
+                    onChange={() => setPayMethod("card")}
+                    className="mt-1 accent-navy"
+                  />
+                  <div className="flex-1">
+                    <p className="flex items-center gap-2 text-sm font-medium text-navy">
+                      <CreditCard className="h-4 w-4" /> Debit / Credit Card
+                      <span className="ml-1 rounded-sm bg-navy/10 px-1.5 py-0.5 text-[0.6rem] uppercase tracking-wider text-navy">Safepay</span>
+                    </p>
+                    <p className="text-xs text-navy-soft">Secure card checkout via Safepay. You'll be redirected to complete payment.</p>
+                  </div>
+                </label>
               </div>
               <p className="mt-3 flex items-center gap-2 text-xs text-navy-soft">
                 <ShieldCheck className="h-3.5 w-3.5 text-gold" />
-                Card payment coming soon.
+                Payments are encrypted and processed securely.
               </p>
             </div>
 
