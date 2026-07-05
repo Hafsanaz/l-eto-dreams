@@ -1,12 +1,14 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { ArrowLeft, Loader2, ShieldCheck } from "lucide-react";
+import { ArrowLeft, CreditCard, Loader2, ShieldCheck, Wallet } from "lucide-react";
 import { useCart, formatPKR } from "@/lib/cart";
 import { supabase } from "@/integrations/supabase/client";
-import { whatsappOrderUrl } from "@/lib/contact";
+import { useServerFn } from "@tanstack/react-start";
+import { createSafepayCheckout } from "@/lib/safepay.functions";
 
 const DELIVERY_FEE = 200;
+type PayMethod = "cod" | "card";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
