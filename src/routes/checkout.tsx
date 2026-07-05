@@ -88,7 +88,7 @@ function Checkout() {
         subtotal,
         delivery_fee: DELIVERY_FEE,
         total,
-        payment_method: "cod",
+        payment_method: payMethod,
         status: "new",
       })
       .select("id")
@@ -100,7 +100,23 @@ function Checkout() {
       return;
     }
 
-    // Build WhatsApp summary
+    // Card payment → mint Safepay checkout and redirect to hosted page.
+    if (payMethod === "card") {
+      try {
+        const { checkoutUrl } = await startCardPayment({ data: { orderId: data.id } });
+        clear();
+        window.location.href = checkoutUrl;
+        return;
+      } catch (err) {
+        setSubmitting(false);
+        setServerError(
+          err instanceof Error ? err.message : "Couldn't start card payment. Please try again.",
+        );
+        return;
+      }
+    }
+
+    // COD → WhatsApp confirmation, then success page.
     const itemLines = items.map((i) => `• ${i.name} × ${i.qty} — ${formatPKR(i.price * i.qty)}`).join("\n");
     const msg =
       `Hey L'ETO, I've just placed order #${data.id.slice(0, 8).toUpperCase()}.\n\n` +
@@ -112,7 +128,6 @@ function Checkout() {
     const waUrl = `https://wa.me/923356633668?text=${encodeURIComponent(msg)}`;
 
     clear();
-    // Open WhatsApp confirmation in a new tab, then navigate to success page
     window.open(waUrl, "_blank", "noopener,noreferrer");
     navigate({ to: "/order-success", search: { id: data.id } });
   };
