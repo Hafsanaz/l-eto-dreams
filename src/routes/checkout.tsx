@@ -1,12 +1,14 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { ArrowLeft, Loader2, ShieldCheck } from "lucide-react";
+import { ArrowLeft, CreditCard, Loader2, ShieldCheck, Wallet } from "lucide-react";
 import { useCart, formatPKR } from "@/lib/cart";
 import { supabase } from "@/integrations/supabase/client";
-import { whatsappOrderUrl } from "@/lib/contact";
+import { useServerFn } from "@tanstack/react-start";
+import { createSafepayCheckout } from "@/lib/safepay.functions";
 
 const DELIVERY_FEE = 200;
+type PayMethod = "cod" | "card";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -29,7 +31,9 @@ const schema = z.object({
 function Checkout() {
   const { items, subtotal, clear } = useCart();
   const navigate = useNavigate();
+  const startCardPayment = useServerFn(createSafepayCheckout);
   const [form, setForm] = useState({ customer_name: "", phone: "", address: "", notes: "" });
+  const [payMethod, setPayMethod] = useState<PayMethod>("cod");
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -84,7 +88,7 @@ function Checkout() {
         subtotal,
         delivery_fee: DELIVERY_FEE,
         total,
-        payment_method: "cod",
+        payment_method: payMethod,
         status: "new",
       })
       .select("id")
@@ -96,7 +100,23 @@ function Checkout() {
       return;
     }
 
-    // Build WhatsApp summary
+    // Card payment → mint Safepay checkout and redirect to hosted page.
+    if (payMethod === "card") {
+      try {
+        const { checkoutUrl } = await startCardPayment({ data: { orderId: data.id } });
+        clear();
+        window.location.href = checkoutUrl;
+        return;
+      } catch (err) {
+        setSubmitting(false);
+        setServerError(
+          err instanceof Error ? err.message : "Couldn't start card payment. Please try again.",
+        );
+        return;
+      }
+    }
+
+    // COD → WhatsApp confirmation, then success page.
     const itemLines = items.map((i) => `• ${i.name} × ${i.qty} — ${formatPKR(i.price * i.qty)}`).join("\n");
     const msg =
       `Hey L'ETO, I've just placed order #${data.id.slice(0, 8).toUpperCase()}.\n\n` +
@@ -108,7 +128,6 @@ function Checkout() {
     const waUrl = `https://wa.me/923356633668?text=${encodeURIComponent(msg)}`;
 
     clear();
-    // Open WhatsApp confirmation in a new tab, then navigate to success page
     window.open(waUrl, "_blank", "noopener,noreferrer");
     navigate({ to: "/order-success", search: { id: data.id } });
   };
@@ -171,16 +190,42 @@ function Checkout() {
 
             <div className="mt-8">
               <h3 className="font-display text-lg text-navy">Payment method</h3>
-              <div className="mt-3 flex items-start gap-3 border border-navy/20 bg-powder p-4">
-                <input type="radio" checked readOnly className="mt-1 accent-navy" />
-                <div>
-                  <p className="text-sm font-medium text-navy">Cash on Delivery</p>
-                  <p className="text-xs text-navy-soft">Pay in cash when your order arrives at your door.</p>
-                </div>
+              <div className="mt-3 grid gap-3">
+                <label className={`flex cursor-pointer items-start gap-3 border p-4 transition ${payMethod === "cod" ? "border-navy bg-powder" : "border-navy/20 hover:bg-powder/60"}`}>
+                  <input
+                    type="radio"
+                    name="pay"
+                    checked={payMethod === "cod"}
+                    onChange={() => setPayMethod("cod")}
+                    className="mt-1 accent-navy"
+                  />
+                  <div className="flex-1">
+                    <p className="flex items-center gap-2 text-sm font-medium text-navy">
+                      <Wallet className="h-4 w-4" /> Cash on Delivery
+                    </p>
+                    <p className="text-xs text-navy-soft">Pay in cash when your order arrives at your door.</p>
+                  </div>
+                </label>
+                <label className={`flex cursor-pointer items-start gap-3 border p-4 transition ${payMethod === "card" ? "border-navy bg-powder" : "border-navy/20 hover:bg-powder/60"}`}>
+                  <input
+                    type="radio"
+                    name="pay"
+                    checked={payMethod === "card"}
+                    onChange={() => setPayMethod("card")}
+                    className="mt-1 accent-navy"
+                  />
+                  <div className="flex-1">
+                    <p className="flex items-center gap-2 text-sm font-medium text-navy">
+                      <CreditCard className="h-4 w-4" /> Debit / Credit Card
+                      <span className="ml-1 rounded-sm bg-navy/10 px-1.5 py-0.5 text-[0.6rem] uppercase tracking-wider text-navy">Safepay</span>
+                    </p>
+                    <p className="text-xs text-navy-soft">Secure card checkout via Safepay. You'll be redirected to complete payment.</p>
+                  </div>
+                </label>
               </div>
               <p className="mt-3 flex items-center gap-2 text-xs text-navy-soft">
                 <ShieldCheck className="h-3.5 w-3.5 text-gold" />
-                Card payment coming soon.
+                Payments are encrypted and processed securely.
               </p>
             </div>
 
@@ -189,7 +234,11 @@ function Checkout() {
             )}
 
             <button disabled={submitting} className="btn-navy mt-8 w-full justify-center disabled:opacity-60">
-              {submitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Placing order…</> : `Place order · ${formatPKR(total)}`}
+              {submitting ? (
+                <><Loader2 className="h-4 w-4 animate-spin" /> {payMethod === "card" ? "Redirecting to Safepay…" : "Placing order…"}</>
+              ) : (
+                payMethod === "card" ? `Pay ${formatPKR(total)} with card` : `Place order · ${formatPKR(total)}`
+              )}
             </button>
           </form>
 
