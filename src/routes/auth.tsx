@@ -3,7 +3,16 @@ import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
+type AuthSearch = { next?: string };
+
+function isSafeRelative(path: string | undefined): path is string {
+  return !!path && path.startsWith("/") && !path.startsWith("//");
+}
+
 export const Route = createFileRoute("/auth")({
+  validateSearch: (s: Record<string, unknown>): AuthSearch => ({
+    next: typeof s.next === "string" ? s.next : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Sign in — L'ETO Bakeshop" },
@@ -15,6 +24,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { next } = Route.useSearch();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,11 +32,20 @@ function AuthPage() {
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
 
+  const goNext = () => {
+    if (isSafeRelative(next)) {
+      window.location.href = next;
+    } else {
+      navigate({ to: "/admin/orders" });
+    }
+  };
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/admin/orders" });
+      if (data.session) goNext();
     });
-  }, [navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,9 +57,11 @@ function AuthPage() {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       setSubmitting(false);
       if (error) return setError(error.message);
-      navigate({ to: "/admin/orders" });
+      goNext();
     } else {
-      const redirectUrl = `${window.location.origin}/admin/orders`;
+      const redirectUrl = isSafeRelative(next)
+        ? `${window.location.origin}${next}`
+        : `${window.location.origin}/admin/orders`;
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -49,7 +70,7 @@ function AuthPage() {
       setSubmitting(false);
       if (error) return setError(error.message);
       if (data.session) {
-        setInfo("Account created. Ask the site owner to grant you admin access, then refresh.");
+        goNext();
       } else {
         setInfo("Check your email to confirm your account, then sign in.");
       }
