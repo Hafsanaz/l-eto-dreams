@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, CreditCard, Loader2, ShieldCheck, Wallet } from "lucide-react";
 import { useCart, formatPKR } from "@/lib/cart";
@@ -37,8 +37,42 @@ function Checkout() {
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
 
   const total = subtotal + (items.length > 0 ? DELIVERY_FEE : 0);
+
+  useEffect(() => {
+    let cancelled = false;
+    supabase.auth.getSession().then(({ data }) => {
+      if (cancelled) return;
+      if (!data.session) {
+        window.location.href = `/auth?next=${encodeURIComponent("/checkout")}`;
+        return;
+      }
+      const user = data.session.user;
+      const name =
+        (user.user_metadata?.full_name as string | undefined) ||
+        (user.user_metadata?.name as string | undefined) ||
+        "";
+      setForm((f) => ({
+        ...f,
+        customer_name: f.customer_name || name,
+        phone: f.phone || ((user.user_metadata?.phone as string | undefined) ?? ""),
+      }));
+      setAuthChecked(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!authChecked) {
+    return (
+      <section className="bg-powder flex min-h-screen items-center justify-center pt-24">
+        <Loader2 className="h-6 w-6 animate-spin text-navy" />
+      </section>
+    );
+  }
 
   if (items.length === 0) {
     return (
@@ -52,6 +86,7 @@ function Checkout() {
       </section>
     );
   }
+
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

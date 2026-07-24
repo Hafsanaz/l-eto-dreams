@@ -36,7 +36,7 @@ function AuthPage() {
     if (isSafeRelative(next)) {
       window.location.href = next;
     } else {
-      navigate({ to: "/admin/orders" });
+      navigate({ to: "/menu" });
     }
   };
 
@@ -61,7 +61,7 @@ function AuthPage() {
     } else {
       const redirectUrl = isSafeRelative(next)
         ? `${window.location.origin}${next}`
-        : `${window.location.origin}/admin/orders`;
+        : `${window.location.origin}/menu`;
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -80,11 +80,16 @@ function AuthPage() {
   return (
     <section className="bg-powder flex min-h-screen items-center justify-center px-6 pt-24">
       <form onSubmit={onSubmit} className="w-full max-w-md bg-ivory p-8 shadow-[var(--shadow-soft)]">
-        <p className="eyebrow">Staff area</p>
+        <p className="eyebrow">Your account</p>
         <h1 className="mt-3 font-display text-3xl text-navy">
-          {mode === "signin" ? "Sign in" : "Create account"}
+          {mode === "signin" ? "Sign in to continue" : "Create your account"}
         </h1>
-        <p className="mt-2 text-sm text-navy-soft">Admin & staff access only.</p>
+        <p className="mt-2 text-sm text-navy-soft">
+          {mode === "signin"
+            ? "Sign in to place an order and track your deliveries."
+            : "Join L'ETO to order online and save your details for next time."}
+        </p>
+
         <div className="mt-6 flex flex-col gap-4">
           <label className="flex flex-col gap-2">
             <span className="text-[0.72rem] uppercase tracking-[0.22em] text-navy-soft">Email</span>
