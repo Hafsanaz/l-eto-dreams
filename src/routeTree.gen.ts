@@ -14,6 +14,7 @@ import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as OrderSuccessRouteImport } from './routes/order-success'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -49,6 +50,11 @@ const MenuRoute = MenuRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/home': typeof HomeRoute
   '/mcp': typeof McpRoute
   '/menu': typeof MenuRoute
   '/order-success': typeof OrderSuccessRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/home': typeof HomeRoute
   '/mcp': typeof McpRoute
   '/menu': typeof MenuRoute
   '/order-success': typeof OrderSuccessRoute
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/home': typeof HomeRoute
   '/mcp': typeof McpRoute
   '/menu': typeof MenuRoute
   '/order-success': typeof OrderSuccessRoute
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/checkout'
     | '/contact'
+    | '/home'
     | '/mcp'
     | '/menu'
     | '/order-success'
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/checkout'
     | '/contact'
+    | '/home'
     | '/mcp'
     | '/menu'
     | '/order-success'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/checkout'
     | '/contact'
+    | '/home'
     | '/mcp'
     | '/menu'
     | '/order-success'
@@ -224,6 +236,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CheckoutRoute: typeof CheckoutRoute
   ContactRoute: typeof ContactRoute
+  HomeRoute: typeof HomeRoute
   McpRoute: typeof McpRoute
   MenuRoute: typeof MenuRoute
   OrderSuccessRoute: typeof OrderSuccessRoute
@@ -271,6 +284,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -370,6 +390,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CheckoutRoute: CheckoutRoute,
   ContactRoute: ContactRoute,
+  HomeRoute: HomeRoute,
   McpRoute: McpRoute,
   MenuRoute: MenuRoute,
   OrderSuccessRoute: OrderSuccessRoute,
