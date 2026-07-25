@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, Phone, Clock, Instagram, Facebook, Send } from "lucide-react";
 import { useState } from "react";
-import { ADDRESS_LINES, HOURS, PHONE_DISPLAY, PHONE_TEL, SOCIAL, WHATSAPP_URL } from "@/lib/contact";
+import { SOCIAL, useSelectedCity } from "@/lib/contact";
+
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
