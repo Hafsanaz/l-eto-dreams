@@ -38,12 +38,11 @@ function CityPicker() {
 
   const totalOutlets = CITIES.reduce((n, c) => n + c.outlets, 0);
 
-  const select = (id: string) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("leto:city", id);
-    }
+  const select = (id: CityId) => {
+    setSelectedCity(id);
     navigate({ to: "/home" });
   };
+
 
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-navy">
