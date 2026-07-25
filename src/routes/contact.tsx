@@ -38,7 +38,7 @@ function Contact() {
       <section className="bg-powder pb-16 pt-36 md:pt-44">
         <div className="mx-auto max-w-4xl px-6 text-center md:px-10">
           <p className="eyebrow">Say hello</p>
-          <h1 className="mt-5 font-display text-5xl md:text-7xl">Visit the bakeshop</h1>
+          <h1 className="mt-5 font-display text-5xl md:text-7xl">Visit our {city.name} bakeshop</h1>
           <p className="mx-auto mt-5 max-w-xl text-navy-soft">
             Come say hi, pick up a cake, or send us a custom request — we'd love to bake for you.
           </p>
