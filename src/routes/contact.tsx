@@ -149,7 +149,7 @@ function Contact() {
           <div className="overflow-hidden border border-border">
             <iframe
               title="L'ETO Bakeshop location"
-              src="https://www.google.com/maps?q=Teen+Meela+Chowk+Attock+Pakistan&output=embed"
+              src={mapEmbed}
               className="h-[440px] w-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
