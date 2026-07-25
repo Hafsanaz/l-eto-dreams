@@ -2,21 +2,10 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ChevronRight, MapPin, Search, Store } from "lucide-react";
 import heroCake from "@/assets/hero-cake.jpg";
+import { CITY_LIST, setSelectedCity, type CityId } from "@/lib/contact";
 
-const CITIES = [
-  {
-    id: "attock",
-    name: "Attock",
-    outlets: 1,
-    note: "Teen Meela Chowk — flagship bakeshop",
-  },
-  {
-    id: "hazro",
-    name: "Hazro",
-    outlets: 1,
-    note: "New branch — freshly opened",
-  },
-] as const;
+const CITIES = CITY_LIST;
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
