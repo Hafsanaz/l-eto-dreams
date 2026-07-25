@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Facebook, Phone, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
-import { ADDRESS_LINES, HOURS, PHONE_DISPLAY, PHONE_TEL, SOCIAL } from "@/lib/contact";
+import { SOCIAL, useSelectedCity } from "@/lib/contact";
+
 
 function TikTok({ className }: { className?: string }) {
   return (
@@ -12,9 +13,12 @@ function TikTok({ className }: { className?: string }) {
 }
 
 export function Footer() {
+  const city = useSelectedCity();
+  const { addressLines: ADDRESS_LINES, hours: HOURS, phoneDisplay: PHONE_DISPLAY, phoneTel: PHONE_TEL } = city;
   return (
     <footer className="relative mt-24 border-t border-border bg-navy text-ivory">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-4 md:px-10">
+
         <div className="md:col-span-1">
           <Logo tone="ivory" />
           <p className="mt-6 font-display text-lg italic text-gold">
@@ -26,7 +30,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="eyebrow text-gold">Visit</h4>
+          <h4 className="eyebrow text-gold">Visit — {city.name}</h4>
           <p className="mt-5 flex items-start gap-3 text-sm text-ivory/80">
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
             <span>
