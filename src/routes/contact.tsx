@@ -18,16 +18,20 @@ export const Route = createFileRoute("/contact")({
 
 function Contact() {
   const [sent, setSent] = useState(false);
+  const city = useSelectedCity();
+  const { addressLines: ADDRESS_LINES, hours: HOURS, phoneDisplay: PHONE_DISPLAY, phoneTel: PHONE_TEL, whatsappNumber, mapEmbed } = city;
+  const WHATSAPP_URL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hi L'ETO Bakeshop (${city.name}), I'd like to place an order.`)}`;
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const text = encodeURIComponent(
-      `Hi L'ETO Bakeshop,\n\nName: ${data.get("name")}\nPhone: ${data.get("phone")}\n\n${data.get("message")}`,
+      `Hi L'ETO Bakeshop (${city.name}),\n\nName: ${data.get("name")}\nPhone: ${data.get("phone")}\n\n${data.get("message")}`,
     );
-    window.open(`https://wa.me/923356633668?text=${text}`, "_blank");
+    window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
     setSent(true);
   }
+
 
   return (
     <>
