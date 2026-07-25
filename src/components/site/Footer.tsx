@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Facebook, Phone, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
-import { ADDRESS_LINES, HOURS, PHONE_DISPLAY, PHONE_TEL, SOCIAL } from "@/lib/contact";
+import { SOCIAL, useSelectedCity } from "@/lib/contact";
+
 
 function TikTok({ className }: { className?: string }) {
   return (
