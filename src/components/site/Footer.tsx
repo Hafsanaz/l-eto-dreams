@@ -30,7 +30,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="eyebrow text-gold">Visit</h4>
+          <h4 className="eyebrow text-gold">Visit — {city.name}</h4>
           <p className="mt-5 flex items-start gap-3 text-sm text-ivory/80">
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
             <span>
