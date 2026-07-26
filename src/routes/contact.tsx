@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, Phone, Clock, Instagram, Facebook, Send } from "lucide-react";
 import { useState } from "react";
-import { SOCIAL, useSelectedCity } from "@/lib/contact";
-
+import { ADDRESS_LINES, HOURS, PHONE_DISPLAY, PHONE_TEL, SOCIAL, WHATSAPP_URL } from "@/lib/contact";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -18,27 +17,23 @@ export const Route = createFileRoute("/contact")({
 
 function Contact() {
   const [sent, setSent] = useState(false);
-  const city = useSelectedCity();
-  const { addressLines: ADDRESS_LINES, hours: HOURS, phoneDisplay: PHONE_DISPLAY, phoneTel: PHONE_TEL, whatsappNumber, mapEmbed } = city;
-  const WHATSAPP_URL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hi L'ETO Bakeshop (${city.name}), I'd like to place an order.`)}`;
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const text = encodeURIComponent(
-      `Hi L'ETO Bakeshop (${city.name}),\n\nName: ${data.get("name")}\nPhone: ${data.get("phone")}\n\n${data.get("message")}`,
+      `Hi L'ETO Bakeshop,\n\nName: ${data.get("name")}\nPhone: ${data.get("phone")}\n\n${data.get("message")}`,
     );
-    window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
+    window.open(`https://wa.me/923356633668?text=${text}`, "_blank");
     setSent(true);
   }
-
 
   return (
     <>
       <section className="bg-powder pb-16 pt-36 md:pt-44">
         <div className="mx-auto max-w-4xl px-6 text-center md:px-10">
           <p className="eyebrow">Say hello</p>
-          <h1 className="mt-5 font-display text-5xl md:text-7xl">Visit our {city.name} bakeshop</h1>
+          <h1 className="mt-5 font-display text-5xl md:text-7xl">Visit the bakeshop</h1>
           <p className="mx-auto mt-5 max-w-xl text-navy-soft">
             Come say hi, pick up a cake, or send us a custom request — we'd love to bake for you.
           </p>
@@ -149,7 +144,7 @@ function Contact() {
           <div className="overflow-hidden border border-border">
             <iframe
               title="L'ETO Bakeshop location"
-              src={mapEmbed}
+              src="https://www.google.com/maps?q=Teen+Meela+Chowk+Attock+Pakistan&output=embed"
               className="h-[440px] w-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

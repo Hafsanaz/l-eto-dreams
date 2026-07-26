@@ -1,13 +1,9 @@
-import { useSelectedCity } from "@/lib/contact";
+import { WHATSAPP_URL } from "@/lib/contact";
 
 export function FloatingWhatsApp() {
-  const city = useSelectedCity();
-  const href = `https://wa.me/${city.whatsappNumber}?text=${encodeURIComponent(
-    `Hi L'ETO Bakeshop (${city.name}), I'd like to place an order.`,
-  )}`;
   return (
     <a
-      href={href}
+      href={WHATSAPP_URL}
       target="_blank"
       rel="noreferrer"
       aria-label="Order on WhatsApp"
