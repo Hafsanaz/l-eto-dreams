@@ -125,26 +125,26 @@ This prompt design deliberately constrains the assistant to the shop's real inve
 ## 📸 Screenshots
 
 **AI Assistant — "Ask L'ETO" in action**
-![Ask L'ETO assistant conversation](./screenshots/00-ai-assistant.png)
+![Ask L'ETO assistant conversation](./Screenshots./preview.webp)
 
 **Home page**
-![Home page](./screenshots/01-home.png)
+![Home page](./Screenshots./preview1.webp)
 
 **Menu — category browsing**
-![Menu categories](./screenshots/02-menu.png)
+![Menu categories](./Screenshots./preview2.webp)
 
 **Menu — product listing**
-![Cupcake listing](./screenshots/03-cupcakes.png)
+![Cupcake listing](./Screenshots./preview3.webp)
 
 **Cart**
-![Cart drawer](./screenshots/04-cart.png)
+![Cart drawer](./Screenshots./preview4.webp)
 
 **Checkout**
-![Checkout delivery details](./screenshots/05-checkout-details.png)
-![Checkout payment method](./screenshots/06-checkout-payment.png)
+![Checkout delivery details](./Screenshots./preview5.webp)
+![Checkout payment method](./Screenshots./preview6.webp)
 
 **Order confirmation**
-![Order success page](./screenshots/07-order-success.png)
+![Order success page](./Screenshots./preview7.webp)
 
 ---
 
