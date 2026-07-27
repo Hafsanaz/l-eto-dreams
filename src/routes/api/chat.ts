@@ -14,35 +14,50 @@ interface ChatMessage {
   content: string;
 }
  
-// ---- 1. Your real menu (EDIT THIS to match your actual menu items/prices) ----
+// ---- 1. Your real menu ----
 const MENU = `
 CAKES:
-- Nutella Cake — Rs. 2200 (6"), Rs. 3200 (8") — rich chocolate sponge, Nutella cream
-- Lotus Biscoff Cake — Rs. 2400 (6"), Rs. 3400 (8") — Lotus cream, biscuit crumble
-- Ferrero Rocher Cake — Rs. 2600 (6"), Rs. 3600 (8") — hazelnut chocolate, Ferrero topping
-- San Sebastian Cheesecake — Rs. 2000 — baked Basque-style cheesecake
-- Red Velvet Cake — Rs. 2000 (6"), Rs. 3000 (8") — cream cheese frosting
-- Chocolate Fudge Cake — Rs. 1800 (6"), Rs. 2800 (8")
+- KitKat Cake — Rs. 2500
+- Nutella Cake — Rs. 2500
+- German Fudge Cake — Rs. 2200
+- Ferrero Classic Cake — Rs. 2500
+- Lotus Cheesecake — Rs. 850 per slice
+- San Sebastian Cake — Rs. 1100 per slice
  
-CUPCAKES (Rs. 250–350 each):
-- Nutella Cupcake, Lotus Cupcake, Red Velvet Cupcake, Vanilla Bean Cupcake
+CUPCAKES:
+- Lotus Cupcake — Rs. 230
+- Oreo Cupcake — Rs. 250
+- Nutella Cupcake — Rs. 250
+- Belgium Cupcake — Rs. 230
  
-SUNDAES (Rs. 500–700):
-- Nutella Sundae, Lotus Sundae, Oreo Sundae, Brownie Sundae
+SUNDAE:
+- Three Milk Sundae — Rs. 400
+- Nutella Sundae — Rs. 450
+- Pistachio Sundae — Rs. 500
+- Lotus Biscoff Sundae — Rs. 440
  
-PASTRIES (Rs. 300–450): Nutella Pastry, Lotus Pastry, Chocolate Pastry
+PASTRY:
+- Nutella Pastry — Rs. 250
+- Lotus Biscoff Pastry — Rs. 250
+- Red Velvet Pastry — Rs. 250
  
-COOKIES (Rs. 150–250 each): Chocolate Chip, Double Chocolate, Lotus Cookie
+COOKIES:
+- Classic Cookies — Rs. 350
+- Nutella Cookies — Rs. 380
+- Lotus Cookies — Rs. 380
  
-BREAD: Banana Bread — Rs. 600
+BREAD:
+- Banana Bread — Rs. 450
  
-DESSERT: Caramel Three Milk Cake — Rs. 900
+KUNAFA:
+- Kunafa Chocolate Bliss — Rs. 550
  
-KUNAFA: Classic Kunafa — Rs. 800
+DESSERT:
+- Caramel Three Milk — Rs. 350
  
-CHOCO BLISS BALL: Rs. 200 each
+CHOCO BLISS BALLS:
+- Choco Balls — Rs. 90
 `.trim();
-// TODO: replace the placeholder prices/sizes above with your real ones.
  
 const SYSTEM_PROMPT = `You are the friendly ordering assistant for L'ETO Bakeshop, a premium cake and dessert shop in Attock, Pakistan.
  
@@ -144,3 +159,4 @@ export const Route = createFileRoute("/api/chat")({
     },
   },
 });
+
