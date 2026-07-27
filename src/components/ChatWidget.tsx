@@ -7,6 +7,7 @@
 // App.tsx lives, for example: import ChatWidget from "./components/ChatWidget";
 
 import { useState, useRef, useEffect, FormEvent } from "react";
+import { Bot, X, Send, Sparkles } from "lucide-react";
 
 type Role = "user" | "assistant";
 interface Message {
@@ -69,16 +70,19 @@ export default function ChatWidget() {
         <div className="mb-3 w-80 max-w-[90vw] h-[28rem] max-h-[70vh] bg-white rounded-2xl shadow-2xl border border-neutral-200 flex flex-col overflow-hidden">
           {/* Header */}
           <div className="bg-[#173A5E] text-white px-4 py-3 flex items-center justify-between">
-            <div>
-              <p className="font-semibold leading-tight">Ask L'ETO</p>
-              <p className="text-xs text-white/70">Cake recommendations, instantly</p>
+            <div className="flex items-center gap-2">
+              <Sparkles size={16} className="text-amber-300" />
+              <div>
+                <p className="font-semibold leading-tight">Ask L'ETO</p>
+                <p className="text-xs text-white/70">Cake recommendations, instantly</p>
+              </div>
             </div>
             <button
               onClick={() => setOpen(false)}
               aria-label="Close chat"
-              className="text-white/80 hover:text-white text-xl leading-none"
+              className="text-white/80 hover:text-white"
             >
-              ×
+              <X size={20} />
             </button>
           </div>
 
@@ -115,9 +119,10 @@ export default function ChatWidget() {
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="bg-[#173A5E] text-white px-4 py-2 rounded-full text-sm disabled:opacity-40"
+              className="bg-[#173A5E] text-white w-10 h-10 rounded-full flex items-center justify-center disabled:opacity-40 flex-shrink-0"
+              aria-label="Send message"
             >
-              Send
+              <Send size={16} />
             </button>
           </form>
         </div>
@@ -126,10 +131,10 @@ export default function ChatWidget() {
       {/* Floating toggle button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="bg-[#173A5E] text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-2xl hover:scale-105 transition-transform"
+        className="bg-[#173A5E] text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center ring-2 ring-amber-300/60 hover:scale-105 transition-transform"
         aria-label="Toggle chat"
       >
-        {open ? "×" : "🍰"}
+        {open ? <X size={24} /> : <Bot size={26} />}
       </button>
     </div>
   );
