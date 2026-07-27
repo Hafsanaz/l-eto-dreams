@@ -65,7 +65,7 @@ export default function ChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 font-sans">
+    <div className="fixed bottom-24 right-5 z-50 font-sans">
       {open && (
         <div className="mb-3 w-80 max-w-[90vw] h-[28rem] max-h-[70vh] bg-white rounded-2xl shadow-2xl border border-neutral-200 flex flex-col overflow-hidden">
           {/* Header */}
@@ -139,3 +139,4 @@ export default function ChatWidget() {
     </div>
   );
 }
+
