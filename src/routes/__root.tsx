@@ -16,7 +16,6 @@ import { Footer } from "@/components/site/Footer";
 import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { CartProvider } from "@/lib/cart";
 import { CartDrawer } from "@/components/site/CartDrawer";
-import ChatWidget from "@/components/ChatWidget";
 
 function NotFoundComponent() {
   return (
@@ -115,7 +114,6 @@ function RootComponent() {
         </main>
         <Footer />
         <FloatingWhatsApp />
-        <ChatWidget />
         <CartDrawer />
       </CartProvider>
     </QueryClientProvider>

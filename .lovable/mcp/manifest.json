@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "sdk_version": "0.23.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://pydpelrcwmhzoddwvyqq.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "leto-bakeshop-mcp",
+      "version": "0.1.0",
+      "title": "L'ETO Bakeshop"
+    },
+    "tools": [
+      {
+        "name": "get_menu",
+        "title": "Get menu",
+        "description": "Return the full L'ETO Bakeshop menu with categories, item names, and prices in PKR. Optional category filter.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "Optional category name (e.g. 'Cakes', 'Cupcakes')."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_orders",
+        "title": "List orders",
+        "description": "List recent L'ETO Bakeshop orders (admin/staff only). Returns customer name, phone, address, items, total, and status.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "Max orders to return. Default 20."
+            },
+            "status": {
+              "type": "string",
+              "description": "Optional order status filter (e.g. 'pending', 'confirmed', 'delivered', 'cancelled')."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_order",
+        "title": "Get order",
+        "description": "Fetch full details for one L'ETO Bakeshop order by id (admin/staff only).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Order id (UUID)."
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "update_order_status",
+        "title": "Update order status",
+        "description": "Change the fulfilment status of a L'ETO Bakeshop order (admin/staff only). Common values: pending, confirmed, preparing, out_for_delivery, delivered, cancelled.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Order id (UUID)."
+            },
+            "status": {
+              "type": "string",
+              "minLength": 1,
+              "description": "New status string."
+            }
+          },
+          "required": [
+            "id",
+            "status"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

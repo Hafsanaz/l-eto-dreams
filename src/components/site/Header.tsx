@@ -6,7 +6,7 @@ import { PHONE_TEL } from "@/lib/contact";
 import { useCart } from "@/lib/cart";
 
 const NAV = [
-  { to: "/", label: "Home" },
+  { to: "/home", label: "Home" },
   { to: "/menu", label: "Menu" },
   { to: "/reviews", label: "Reviews" },
   { to: "/contact", label: "Contact" },
